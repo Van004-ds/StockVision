@@ -3,26 +3,54 @@
 import streamlit as st
 import pandas as pd 
 import plotly.express as px
+from datetime import datetime
+from PIL import Image
 
+
+#css
+def load_css():
+    with open("assets/style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 #setting up page configuratoin 
 st.set_page_config(
     page_title="StockVision",
     page_icon="📈",
     layout="wide"
 )
-st.title("📈Stock Vision")
+load_css()
+# st.title("📈Stock Vision")
 # st.write("Welcome to Stock Vision V1")
-st.caption(
-    "A Financial Analytics Dashboard for Stock Performance and Risk Analysis."
-)
+# st.caption(
+#     "A Financial Analytics Dashboard for Stock Performance and Risk Analysis."
+# )
 
 
- # lodaing data 
+ # side bar :
 
 
 df = pd.read_csv("data/processed/enginersin_features.csv")
-st.sidebar.title("Srock Information")
+logo = Image.open("assets/logo.png")
+with st.sidebar:
+
+    # st.image(logo, width=60)
+    st.image(logo, use_container_width=True)
+
+    st.divider()
+st.sidebar.markdown(
+    """
+    <p style="
+    color:#00C853;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:1px;
+    ">
+    COMPANY INSIGHTS
+    </p>
+    """,
+    unsafe_allow_html=True
+)    
 # st.sidebar.write("**Ticker:** ENGINERSIN.NS")
+st.sidebar.caption("Choose a company")
 selected_stock = st.sidebar.selectbox(
     "Select Stock",
    [
@@ -33,44 +61,108 @@ selected_stock = st.sidebar.selectbox(
 )
 
 #sidebar 
-st.sidebar.header("📋 Dataset Summary")
-st.sidebar.write(f"**Selected:** {selected_stock}")
-st.sidebar.write(f"** Trading Days :** {len(df)}")
-st.sidebar.write(f"**From:** {df['Date'].iloc[0]}")
-st.sidebar.write(f"**To:** {df['Date'].iloc[-1]}")
-st.sidebar.write(f"**Latest Close:** ₹{df['Close'].iloc[-1]:.2f}")
+with st.sidebar.container(border=True):
+     st.markdown("###  Dataset Summary")
+
+     st.markdown(f"**Selected:** {selected_stock}")
+
+     st.markdown(f"**Trading Days:** {len(df)}")
+
+     st.markdown(f"**From:** {df['Date'].iloc[0]}")
+
+     st.markdown(f"**To:** {df['Date'].iloc[-1]}")
+
+     st.markdown(f""" Latest Close :
+    <span style="color:#00C853;font-weight:bold;">
+     ₹{df['Close'].iloc[-1]:.2f}
+    </span>
+    """,
+    unsafe_allow_html=True)
+    
+     st.markdown(f"""  Data Source :   <span style="color:#A855F7;font-weight:bold;">
+                 Yahoo Finance
+    </span>
+    """,
+    unsafe_allow_html=True)
 # st.subheader("feature engineered dataset")
-# st.dataframe(df.head())
+
+
+
+
+
 with st.expander("view feature engineered dataset"):
     st.dataframe(df)
 st.header("Dashboard overview")
-
-
-
-#kpi section :
-st.divider()
-
-st.subheader("📊 Key Metrics")
-st.header(f"selected stock:{selected_stock}")
-col1, col2, col3 , col4 = st.columns(4)
-current_price = df["Close"].iloc[-1]
-col1.metric(
-    label="Current_price ",
-    value=f"₹{current_price: .2f}"
+st.caption(
+    "A Financial Analytics Dashboard for Stock Performance and Risk Analysis."
 )
+left, right = st.columns([5, 2])
+
+
+with right:
+
+    current_time = datetime.now().strftime("%d %b %Y, %I:%M %p")
+
+    st.success("🟢 Data Loaded")
+
+    st.caption(f"Last Updated: {current_time}")    
+#------------------------------------
+#kpi section :
+#------------------------------------
+st.subheader(" Key Metrics")
+st.header(f"selected stock:{selected_stock}")
+col1, col2, col3 , col4,col5 = st.columns(5)
+latest = df.iloc[-1]
+previous = df.iloc[-2]
+
+price_change = latest["Close"] - previous["Close"]
+price_change_pct = (price_change / previous["Close"]) * 100
+current_price = df["Close"].iloc[-1]
+
+
+
+with col1:
+    col1.metric(
+     "Current Price",
+        f"₹{latest['Close']:.2f}",
+        f"{price_change_pct:.2f}%"
+
+
+)
+with col5:
+    st.metric(
+        "Volume",
+        f"{latest['Volume']:,}"
+    )
+
 current_rsi = df["RSI"].iloc[-1]
-col2.metric(label="Current RSI",
-            value=f"{current_rsi: .2f}")
+with col2:
+      st.metric(
+        "RSI",
+        f"{latest['RSI']:.2f}"
+    )
+
+
+
 max_drawdown = df["drawdown"].min()
-col3.metric(label="Max Drawdown",
-            value=f"{max_drawdown: .2%}")
-current_volatility  = df["rolling_volatility"].iloc[-1]
-col4.metric(label="Rolling Volatility",
-    value=f"{current_volatility:.2%}")
+with col3:
+     st.metric(
+        "Max Drawdown",
+        f"{max_drawdown: .2%}"
+
+    )
+       
+
+# current_volatility  = df["rolling_volatility"].iloc[-1]
+with col4:
+    st.metric(
+        "Volatility",
+        f"{latest['rolling_volatility']:.2%}"
+    )
 st.header("Price & Moving Averages")
 st.subheader("Closing Price")
 fig = px.line(df,x ="Date",y= ["Close","MA_20","MA_50"],
-               title="ENGINERSIN.NS Price with Moving Averages",
+               title=" Price with Moving Averages",
     labels={
         "value": "Price (₹)",
         "variable": "Indicator"
@@ -79,23 +171,134 @@ fig = px.line(df,x ="Date",y= ["Close","MA_20","MA_50"],
 
 # st.plotly_chart(fig,use_container_width=True)
 fig.update_traces(
-    hovertemplate= "<b> %{fullData.name}</b><br>"
-      "<b> Date: </b> %{x}<br>"
-    "<b>Price:</b> ₹%{y:.2f}<extra></extra>"
+    line=dict(
+        
+        width=3
     )
+)
+fig.data[0].line.color = "#00C853"   # Close (Green)
+fig.data[1].line.color =  "#3B82F6"  # MA20 (Blue)
+fig.data[2].line.color = "#EF4444"   # MA50 (Red)
+
+fig.data[0].line.width = 3
+fig.data[1].line.width = 2
+fig.data[2].line.width = 2
 fig.update_layout(
-    template="plotly_white",
-    hovermode= "x unified",
-    title_x= 0.5
+
+    template="plotly_dark",
+
+    paper_bgcolor="#1A1F2E",
+
+    plot_bgcolor="#1A1F2E",
+
+    font=dict(
+        color="white",
+        size=14
+    ),
+
+    title_font=dict(
+        size=22,
+        color="white"
+    ),
+
+    margin=dict(
+        l=30,
+        r=30,
+        t=60,
+        b=30
+    ),
+
+    hovermode="x unified",
+
+    legend=dict(
+        orientation="h",
+        y=1.05,
+        x=0
+    )
+)
+fig.update_xaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
+)
+
+fig.update_yaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
 )
 st.plotly_chart(fig,use_container_width=True)
 st.divider()
+
+#daily returns 
+
 st.subheader("Daily Returns")
 fig2 = px.line(df, x="Date",y="Returns",title="Daily returns")
+fig2.update_traces(
+    line=dict(
+        color="#00C853",
+        width=3
+    )
+)
 fig2.update_layout(
-    template="plotly_white",
+
+    template="plotly_dark",
+
+    paper_bgcolor="#1A1F2E",
+
+    plot_bgcolor="#1A1F2E",
+
+    font=dict(
+        color="white",
+        size=14
+    ),
+
+    title_font=dict(
+        size=22,
+        color="white"
+    ),
+
+    margin=dict(
+        l=30,
+        r=30,
+        t=60,
+        b=30
+    ),
+
     hovermode="x unified",
-    title_x=0.5
+
+    legend=dict(
+        orientation="h",
+        y=1.05,
+        x=0
+    )
+)
+fig2.update_xaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
+)
+
+fig2.update_yaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
 )
 st.plotly_chart(
     fig2,
@@ -106,6 +309,66 @@ st.divider()
 st.subheader("Cumulative returns")
 fig3= px.line(df, x="Date",y="Cumulative_Returns",
               title="cumulative returns")
+fig3.update_traces(
+    line=dict(
+        color="#00C853",
+        width=3
+    )
+)
+
+
+fig3.update_layout(
+
+    template="plotly_dark",
+
+    paper_bgcolor="#1A1F2E",
+
+    plot_bgcolor="#1A1F2E",
+
+    font=dict(
+        color="white",
+        size=14
+    ),
+
+    title_font=dict(
+        size=22,
+        color="white"
+    ),
+
+    margin=dict(
+        l=30,
+        r=30,
+        t=60,
+        b=30
+    ),
+
+    hovermode="x unified",
+
+    legend=dict(
+        orientation="h",
+        y=1.05,
+        x=0
+    )
+)
+fig3.update_xaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
+)
+
+fig3.update_yaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
+)
 # df.columns
 st.plotly_chart(fig3, use_container_width=True)
 st.divider()
@@ -119,12 +382,64 @@ fig4 =  px.line(
     y="drawdown",
     title="Drawdown"
 )
+fig4.update_traces(
+    line=dict(
+        color="#00C853",
+        width=3
+    )
+)
 fig4.update_layout(
-    template="plotly_white",
+
+    template="plotly_dark",
+
+    paper_bgcolor="#1A1F2E",
+
+    plot_bgcolor="#1A1F2E",
+
+    font=dict(
+        color="white",
+        size=14
+    ),
+
+    title_font=dict(
+        size=22,
+        color="white"
+    ),
+
+    margin=dict(
+        l=30,
+        r=30,
+        t=60,
+        b=30
+    ),
+
     hovermode="x unified",
-    title_x=0.5
+
+    legend=dict(
+        orientation="h",
+        y=1.05,
+        x=0
+    )
+)
+fig4.update_xaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
 )
 
+fig4.update_yaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
+)
 st.plotly_chart(
     fig4,
     use_container_width=True
@@ -143,14 +458,64 @@ fig5 = px.line(
     x="Date",
     y="RSI",
     title="Relative Strength Index (RSI)"
+    
 )
+fig5.update_traces(line=dict(
+    color="#00C853",
+    width=3))
 
 fig5.update_layout(
-    template="plotly_white",
+
+    template="plotly_dark",
+
+    paper_bgcolor="#1A1F2E",
+
+    plot_bgcolor="#1A1F2E",
+
+    font=dict(
+        color="white",
+        size=14
+    ),
+
+    title_font=dict(
+        size=22,
+        color="white"
+    ),
+
+    margin=dict(
+        l=30,
+        r=30,
+        t=60,
+        b=30
+    ),
+
     hovermode="x unified",
-    title_x=0.5
+
+    legend=dict(
+        orientation="h",
+        y=1.05,
+        x=0
+    )
+)
+fig5.update_xaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
 )
 
+fig5.update_yaxes(
+
+    showgrid=True,
+
+    gridcolor="#2A2F3A",
+
+    zeroline=False
+
+)
 st.plotly_chart(
     fig5,
     use_container_width=True

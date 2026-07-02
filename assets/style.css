@@ -1,0 +1,112 @@
+/* ============================= */
+/* StockVision Professional Theme */
+/* ============================= */
+
+/* Main App */
+.stApp {
+    background-color: #0E1117;
+    color: #F3F4F6;
+}
+
+/* Sidebar */
+/* section[data-testid="stSidebar"] {
+    background-color: #131722;
+    border-right: 1px solid #2A2F3A;
+} -> previous color */
+section[data-testid="stSidebar"]{
+
+    background-color:#0E1117;
+     border-right: 1px solid #2A2F3A;
+
+}
+/* Headings */
+h1, h2, h3 {
+    color: white;
+    font-weight: 700;
+}
+
+/* Paragraphs */
+p {
+    color: #C9D1D9;
+}
+
+/* Horizontal Line */
+hr {
+    border-color: #2A2F3A;
+}
+
+/* Metric Cards */
+div[data-testid="metric-container"] {
+
+    background-color: #1A1F2E;
+
+    border: 1px solid #2A2F3A;
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
+
+}
+
+/* Metric Label */
+
+div[data-testid="metric-container"] label {
+
+    color: #9CA3AF;
+
+}
+
+/* Metric Value */
+
+div[data-testid="metric-container"] div {
+
+    color: white;
+
+}
+
+/* Buttons */
+
+.stButton>button{
+
+    background-color:#00C853;
+
+    color:white;
+
+    border:none;
+
+    border-radius:10px;
+
+}
+
+.stButton>button:hover{
+
+    background-color:#00A844;
+
+}
+
+/* Selectbox */
+
+div[data-baseweb="select"]{
+
+    border-radius:10px;
+
+}
+/* Remove Streamlit  white looking Header */
+
+header[data-testid="stHeader"] {
+    background: #0E1117;
+}
+
+/* Top toolbar */
+
+div[data-testid="stToolbar"] {
+    background: #0E1117;
+}
+
+/* Main container */
+
+div[data-testid="stAppViewContainer"] {
+    background: #0E1117;
+}
