@@ -103,7 +103,7 @@ StockVision/
 ### Dashboard
 
 ```
-📷 assets/dashboard.png
+![Dashboard](assets/dashboard.png)
 ```
 
 ### Stock Performance
