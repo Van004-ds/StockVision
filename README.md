@@ -16,17 +16,17 @@
 
 ---
 
-# 📌 Project Overview
+#  Project Overview
 
 StockVision is an end-to-end financial analytics dashboard designed to transform historical stock market data into meaningful insights through data cleaning, exploratory data analysis (EDA), financial KPI analysis, and interactive visualizations.
 
 The platform enables users to explore stock performance, identify market trends, evaluate technical indicators, and support data-driven investment analysis through an intuitive Streamlit interface.
 
----
 
-# ✨ Features
 
-### 📊 Financial Analytics
+#  Features
+
+###  Financial Analytics
 
 * Historical Stock Price Analysis
 * Daily & Cumulative Returns
@@ -36,9 +36,9 @@ The platform enables users to explore stock performance, identify market trends,
 * Maximum Drawdown Analysis
 * Volume Trend Analysis
 
----
 
-### 📈 Interactive Dashboard
+
+###  Interactive Dashboard
 
 * Interactive Plotly Charts
 * Dynamic KPI Cards
@@ -47,9 +47,9 @@ The platform enables users to explore stock performance, identify market trends,
 * Sidebar Controls
 * Responsive Layout
 
----
 
-### 🧹 Data Processing
+
+###  Data Processing
 
 * Historical Data Collection using Yahoo Finance
 * Data Cleaning
@@ -59,7 +59,7 @@ The platform enables users to explore stock performance, identify market trends,
 * Financial KPI Calculation
 * Exploratory Data Analysis (EDA)
 
----
+
 
 # 🛠️ Tech Stack
 
@@ -72,9 +72,9 @@ The platform enables users to explore stock performance, identify market trends,
 | Data Source     | Yahoo Finance (yfinance) |
 | Version Control | Git, GitHub              |
 
----
 
-# 📂 Project Structure
+
+#  Project Structure
 
 ```text
 StockVision/
@@ -94,14 +94,13 @@ StockVision/
 └── LICENSE
 ```
 
----
 
-# 📊 Dashboard Preview
+---
+#  Dashboard Preview
 
 > ![StockVision Demo](assets/demo.gif)
 
-### Dashboard
-
+---
 
 
 
@@ -114,9 +113,9 @@ StockVision/
 
 
 
----
 
-# 📈 Key Performance Metrics
+
+#  Key Performance Metrics
 
 The dashboard provides insights into:
 
@@ -129,9 +128,8 @@ The dashboard provides insights into:
 * Trading Volume
 * Drawdown Analysis
 
----
 
-# 🚀 Getting Started
+#  Getting Started
 
 ### Clone Repository
 
@@ -139,7 +137,7 @@ The dashboard provides insights into:
 git clone https://github.com/yourusername/StockVision.git
 ```
 
----
+
 
 ### Install Requirements
 
@@ -147,7 +145,7 @@ git clone https://github.com/yourusername/StockVision.git
 pip install -r requirements.txt
 ```
 
----
+
 
 ### Run Application
 
@@ -155,9 +153,8 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
----
 
-# 📋 Workflow
+# Workflow
 
 ```text
 Yahoo Finance
@@ -181,7 +178,6 @@ Financial KPI Analysis
 Interactive Dashboard
 ```
 
----
 
 # 📚 Skills Demonstrated
 
@@ -197,9 +193,8 @@ Interactive Dashboard
 * Plotly Visualization
 * Git & GitHub
 
----
 
-# 🎯 Future Enhancements (V2)
+#  Future Enhancements (V2)
 
 * PostgreSQL Integration
 * Power BI Dashboard
