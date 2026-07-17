@@ -1,6 +1,6 @@
 
-
-# 📈 StockVision – Financial Analytics Dashboard
+![logo](assets/logo.png)
+# StockVision – Financial Analytics Dashboard
 
 > **An interactive financial analytics platform built with Python and Streamlit to analyze historical stock market data using Exploratory Data Analysis (EDA), technical indicators, and interactive visualizations.**
 
