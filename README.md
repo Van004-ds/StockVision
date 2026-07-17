@@ -107,8 +107,12 @@ StockVision/
 
 
 ### Stock Performance
-
 ![Daily Returns](assets/daily_return.png)
+![Daily Returns](assets/cumulative_return.png)
+
+![Daily Returns](assets/drawdown.png)
+
+
 
 ---
 
