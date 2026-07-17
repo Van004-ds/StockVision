@@ -98,19 +98,17 @@ StockVision/
 
 # 📊 Dashboard Preview
 
-> [(https://canva.link/pwkhrkmz3ewoyqe)]
+> ![StockVision Demo](assets/demo.gif)
 
 ### Dashboard
 
 
-![Dashboard](assets/dashboard.png)
+
 
 
 ### Stock Performance
 
-```
-📷 assets/chart.png
-```
+![Daily Returns](assets/daily_return.png)
 
 ---
 
