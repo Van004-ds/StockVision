@@ -5,7 +5,7 @@
 > **An interactive financial analytics platform built with Python and Streamlit to analyze historical stock market data using Exploratory Data Analysis (EDA), technical indicators, and interactive visualizations.**
 
 
-'''Link to app - stock vision''' ![stockvisoin](https://stockvison.streamlit.app/)
+'''Link to app - stock vision''' ![stockvisoin] https://stockvison.streamlit.app/
 <p align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
