@@ -4,6 +4,8 @@
 
 > **An interactive financial analytics platform built with Python and Streamlit to analyze historical stock market data using Exploratory Data Analysis (EDA), technical indicators, and interactive visualizations.**
 
+
+'''Link to app - stock vision''' ![stockvisoin](https://stockvison.streamlit.app/)
 <p align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
@@ -212,7 +214,7 @@ Interactive Dashboard
 
 📧 Email: [vanshikanegi266@gmail.com](mailto:vanshikanegi266@gmail.com)
 
-🔗 LinkedIn: *(Add Profile)*
+🔗 LinkedIn: [LinkedIn](https://www.linkedin.com/in/vanshikanegi/)
 
 💻 GitHub: [https://github.com/Van004-ds](https://github.com/Van004-ds)
 
