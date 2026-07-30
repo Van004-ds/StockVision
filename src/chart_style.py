@@ -1,19 +1,10 @@
 def style_chart(fig):
 
-    # ---------- Style the lines ----------
+    # ---------- Style all lines ----------
     fig.update_traces(
         line=dict(width=2.8),
         hovertemplate=None
     )
-
-    # Close Price (Blue)
-    fig.data[0].line.color = "#1D9BF0"
-
-    # MA20 (Light Blue)
-    fig.data[1].line.color = "#7CC8FF"
-
-    # MA50 (Red)
-    fig.data[2].line.color = "#FF4D4F"
 
     # ---------- Layout ----------
     fig.update_layout(
