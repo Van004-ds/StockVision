@@ -60,6 +60,7 @@ st.sidebar.caption("Choose a company")
 #     "PARAS.NS"
 # ]
 # )
+
 selected_stock = st.sidebar.text_input(
     "Enter Stock Ticker",
     value="ENGINERSIN.NS"
